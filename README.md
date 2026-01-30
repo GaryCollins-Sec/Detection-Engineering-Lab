@@ -4,18 +4,16 @@
 The objective of this project was to engineer an integrated Threat Detection and Network Analysis pipeline using a Wazuh and Suricata stack within a virtualized sandbox. By deploying a Suricata sensor on Ubuntu, I established real-time signature-based inspection to monitor traffic from a Kali Linux attack node. I performed deep-dive analysis with Wireshark to resolve packet-level anomalies, such as checksum offloading, and authored custom Wazuh XML rules to decode and prioritize critical security events like TCP port scanning. This project demonstrates a full-lifecycle approach to detection engineering, from raw packet capture to centralized SIEM dashboarding.
 
 ### Skills Learned
-- Wazuh Rule Development: Authored custom XML rules to promote alert levels and create human-readable event descriptions.
-- Log Decoding: Utilized Wazuh decoders to map Suricata EVE JSON fields into structured SIEM data.
-- Threat Tuning: Configured alerting thresholds and rate-limiting to minimize false positives and manage alert volume.
-- Suricata Signature Writing: Created custom IDS rules using specific protocol flags (TCP SYN) and content matching.
-- IDS Deployment: Configured Suricata in a Linux environment, including interface binding and rule-path management.
-- Traffic Mirroring: Configured virtualized network interfaces in Promiscuous Mode to enable full-stack packet inspection.
-- Protocol Analysis: Used Wireshark to inspect packet headers and troubleshoot handshake anomalies.
-- Vulnerability Scanning: Conducted reconnaissance using Nmap (SYN scans) to validate detection logic and sensor responsiveness.
-- Traffic Generation: Simulated attack traffic from a Kali Linux node to test the resilience of the security pipeline.
-- Linux Hardening & Admin: Managed security services via systemd and performed real-time log analysis using CLI tools like tail, grep, and jq.
-- Virtual Infrastructure: Orchestrated a multi-node lab environment using Oracle VM
-- VirtualBox with isolated bridged networking.
+- Custom Rules: Authored Wazuh XML rules and decoders to prioritize security events.
+- Log Parsing: Mapped Suricata EVE JSON fields into structured, actionable SIEM data.
+- Alert Tuning: Managed alert volume and false positives via rate-limiting and thresholds.
+- IDS Deployment: Installed and tuned Suricata sensors for real-time packet inspection.
+- Signature Writing: Created custom IDS signatures using TCP flags and content matching.
+- Packet Analysis: Used Wireshark and tcpdump to troubleshoot protocol and handshake anomalies.
+- Traffic Generation: Simulated SYN scans and reconnaissance via Kali Linux to test sensor logic.
+- Infrastructure: Orchestrated multi-node virtual networks using Promiscuous Mode mirroring.
+- Log Wrangling: Streamlined real-time analysis using CLI tools (grep, jq, tail).
+- System Admin: Managed security services and service persistence via systemd.
 
 
 ### Tools Used
