@@ -1,75 +1,81 @@
-# Detection Engineering & Network Analysis Lab
+<h1>Detection Engineering & Network Analysis Lab</h1>
 
-## Objective
-The objective of this project was to engineer an integrated Threat Detection and Network Analysis pipeline using a Wazuh and Suricata stack within a virtualized sandbox. By deploying a Suricata sensor on Ubuntu, I established real-time signature-based inspection to monitor traffic from a Kali Linux attack node. I performed deep-dive analysis with Wireshark to resolve packet-level anomalies, such as checksum offloading, and authored custom Wazuh XML rules to decode and prioritize critical security events like TCP port scanning. This project demonstrates a full-lifecycle approach to detection engineering, from raw packet capture to centralized SIEM dashboarding.
+<h2>Objective</h2>
+<p>
+Built a threat detection and network analysis pipeline using Wazuh (SIEM/XDR) and Suricata (IDS) in a virtualized lab.
+</p>
+<ul>
+  <li>Deployed Suricata on Ubuntu to monitor traffic from a Kali attack node</li>
+  <li>Conducted deep-packet analysis with Wireshark to validate alerts</li>
+  <li>Authored custom Wazuh XML rules to prioritize critical security events like TCP port scans</li>
+  <li>Demonstrated end-to-end detection: raw packet capture → alerting → SIEM dashboard</li>
+</ul>
 
-### Skills Learned
-- Custom Rules: Authored Wazuh XML rules and decoders to prioritize security events.
-- Log Parsing: Mapped Suricata EVE JSON fields into structured, actionable SIEM data.
-- Alert Tuning: Managed alert volume and false positives via rate-limiting and thresholds.
-- IDS Deployment: Installed and tuned Suricata sensors for real-time packet inspection.
-- Signature Writing: Created custom IDS signatures using TCP flags and content matching.
-- Packet Analysis: Used Wireshark and tcpdump to troubleshoot protocol and handshake anomalies.
-- Traffic Generation: Simulated SYN scans and reconnaissance via Kali Linux to test sensor logic.
-- Infrastructure: Orchestrated multi-node virtual networks using Promiscuous Mode mirroring.
-- Log Wrangling: Streamlined real-time analysis using CLI tools (grep, jq, tail).
-- System Admin: Managed security services and service persistence via systemd.
+<hr>
 
+<h2>Skills Developed</h2>
+<ul>
+  <li>Created custom Wazuh rules and decoders</li>
+  <li>Parsed Suricata EVE JSON into structured SIEM data</li>
+  <li>Tuned alerts to reduce false positives</li>
+  <li>Deployed and configured Suricata sensors</li>
+  <li>Wrote IDS signatures using TCP flags and content matching</li>
+  <li>Troubleshot packets with Wireshark and tcpdump</li>
+  <li>Simulated network attacks (SYN scans, reconnaissance) using Kali Linux</li>
+  <li>Orchestrated multi-node virtual networks in VirtualBox</li>
+  <li>Managed logs and alerts using CLI tools (grep, jq, tail)</li>
+  <li>Maintained services using systemd</li>
+</ul>
 
-### Tools Used
-- Wazuh (SIEM/XDR): Centralized log management, correlation, and intrusion detection.
-- Suricata (IDS/IPS): Served as the network sensor, performing deep packet inspection and signature-based threat detection.
-- Wazuh Agent: Installed on the Ubuntu endpoint to securely ship Suricata's eve.json logs to the Wazuh Manager.
-- Ubuntu Desktop: The primary "Victim/Sensor" node where the defense stack was deployed.
-- Kali Linux: The "Attacker" node used to generate malicious traffic and reconnaissance scans.
-- Oracle VM VirtualBox: The Type-2 hypervisor used to host the virtual network and manage promiscuous mode traffic.
-- Wireshark: Utilized for packet-level troubleshooting, verifying TCP handshakes, and analyzing checksum errors.
-- Nmap: The primary tool used to simulate network reconnaissance and trigger SYN-scan alerts.
-- Ethtool: A critical Linux utility used to disable hardware checksum offloading on the virtual network interface.
-- Systemd (systemctl): Used to manage the background lifecycle of the Suricata and Wazuh services.
-- Nano: The text editor used for modifying Suricata signatures and Wazuh XML rules.
-- jq: Used to parse and prettify the complex JSON output within the eve.json file.
-- Tail/Grep: Essential CLI tools used for real-time log monitoring and troubleshooting.
-  
+<hr>
 
+<h2>Tools</h2>
+<ul>
+  <li>Wazuh (SIEM/XDR)</li>
+  <li>Suricata (IDS/IPS)</li>
+  <li>Wazuh Agent</li>
+  <li>Ubuntu Desktop (Sensor)</li>
+  <li>Kali Linux (Attacker)</li>
+  <li>Oracle VM VirtualBox</li>
+  <li>Wireshark</li>
+  <li>Nmap</li>
+  <li>Ettool</li>
+  <li>Systemd (systemctl)</li>
+  <li>Nano</li>
+  <li>jq</li>
+  <li>Tail/Grep</li>
+</ul>
 
-## Steps
+<hr>
 
+<h2>Implementation Steps</h2>
 
-Reference: SIEM 1
+<h3>Ref 1 – Simulated Attack Detection</h3>
+<p>
+Simulated a stealth TCP SYN scan from Kali against Ubuntu. Suricata captured the traffic and generated JSON alerts, which Wazuh ingested. Custom XML rules promoted critical events to high-priority alerts.
+</p>
+<img width="600" height="222" src="https://github.com/user-attachments/assets/9dfc95cb-2947-4294-8305-142fedbccada" />
 
+<h3>Ref 2 – Packet Validation</h3>
+<p>
+Used Wireshark to confirm SYN scans reached the Suricata sensor. Validated TCP handshakes and packet headers, ensuring accurate correlation between raw traffic and Wazuh alerts.
+</p>
+<img width="747" height="589" src="https://github.com/user-attachments/assets/06dbe53b-7932-40fc-bb5b-e637d88d90c4" />
 
+<h3>Ref 3 – IDS Deployment</h3>
+<p>
+Configured Suricata on Ubuntu to monitor adversarial reconnaissance. Captured stealth TCP SYN scans and exported alerts in EVE JSON format for SIEM ingestion.
+</p>
+<img width="657" height="483" src="https://github.com/user-attachments/assets/13847c47-9f6b-4524-b870-de04474c94c1" />
 
+<h3>Ref 4 – SIEM Integration</h3>
+<p>
+Deployed Wazuh Agent on Ubuntu to ingest Suricata logs into Wazuh Manager. Validated JSON fields and matched them against custom XML rules. Elevated Nmap stealth scans to high-priority alerts (Level 12) on the dashboard.
+</p>
+<img width="1556" height="597" src="https://github.com/user-attachments/assets/6f272742-719e-40f7-bd2a-3668fc15f1ac" />
 
-<img width="600" height="222" alt="Edit_nmap" src="https://github.com/user-attachments/assets/9dfc95cb-2947-4294-8305-142fedbccada" />
-
-This project validated a complete detection pipeline by simulating a stealth TCP SYN scan from Kali Linux against an Ubuntu target. The attack was intercepted by Suricata, which generated a JSON alert that was then ingested and decoded by Wazuh. By authoring custom XML rules to match specific signatures and promote alert levels, I successfully transformed raw network traffic into high-priority security events on the Wazuh Dashboard.
-
-Reference: SIEM 2
-
-
-<img width="747" height="589" alt="Edit_wireshark" src="https://github.com/user-attachments/assets/06dbe53b-7932-40fc-bb5b-e637d88d90c4" />
-
-
-I utilized Wireshark to conduct deep-packet analysis, validating the "ground truth" of Nmap stealth scans by capturing raw TCP SYN frames in real-time. By inspecting packet headers and handshake flags, I confirmed that the virtual network was correctly delivering traffic to the Suricata sensor. This allowed me to correlate raw wire-level data with the final Wazuh alerts, ensuring the entire detection lifecycle was accurate and functional from the initial packet to the SIEM dashboard.
-
-Reference: SIEM 3
-
-
-<img width="657" height="483" alt="Screenshot 2026-01-25 233546" src="https://github.com/user-attachments/assets/13847c47-9f6b-4524-b870-de04474c94c1" />
-
-In this project, I deployed Suricata as a signature-based Network Intrusion Detection System (NIDS) on an Ubuntu "Victim" machine to monitor for adversarial reconnaissance. By configuring Suricata to inspect traffic in real-time, I successfully captured stealth TCP SYN scans initiated from a Kali Linux attack node. As shown in the tail -f log output, Suricata generates detailed telemetry and performance metrics, which it then exports into a structured EVE JSON format. This JSON data, specifically the NMAP TCP SCAN DETECTED signature, serves as the critical bridge between raw network packets and the Wazuh alerting engine, providing high-fidelity detection of "on-the-wire" threats before they can escalate.
-
-Reference: SIEM 4
-
-<img width="1556" height="597" alt="Screenshot 2026-01-25 233236" src="https://github.com/user-attachments/assets/6f272742-719e-40f7-bd2a-3668fc15f1ac" />
-
-I utilized Wazuh as the primary SIEM and XDR platform to orchestrate log collection, decoding, and alert visualization for the entire security stack. By deploying the Wazuh Agent on the Ubuntu target, I established a secure pipeline to ingest Suricata’s EVE JSON logs into the Wazuh Manager for real-time analysis. I leveraged the Wazuh Ruleset Test tool to validate that incoming JSON fields—specifically the alert.signature—were correctly decoded and matched against my custom-authored XML rules. This implementation allowed me to elevate critical reconnaissance events, such as Nmap stealth scans, to high-priority alert levels (Level 12), ensuring immediate visibility on the centralized security dashboard.
-
-
-Reference: SIEM 5
-<img width="1108" height="691" alt="Screenshot 2026-01-25 233324" src="https://github.com/user-attachments/assets/a3ca3fcb-e384-424b-b4e1-4378502c4f4f" />
-
-This image showcases the final stage of the detection pipeline, where Wazuh successfully ingests and categorizes security telemetry from the environment. The interface displays a centralized event log where network-based alerts from Suricata (Rule ID 86601) are correlated alongside host-based activity, such as successful sudo executions and PAM login sessions. By mapping the alert.signature field within the Wazuh manager, I was able to transform raw JSON logs into a structured timeline, providing a unified view of the system’s security posture. This integration confirms the project's ability to aggregate disparate data sources—from wire-level IDS alerts to system-level administrative actions—into a single, actionable dashboard for security monitoring.
-
-
+<h3>Ref 5 – Centralized Dashboard</h3>
+<p>
+Wazuh aggregated IDS and host telemetry into a unified event timeline. Alerts from Suricata (Rule ID 86601) and host activity (sudo, PAM logins) were correlated, providing a complete view of network and system security.
+</p>
+<img width="1108" height="691" src="https://github.com/user-attachments/assets/a3ca3fcb-e384-424b-b4e1-4378502c4f4f" />
